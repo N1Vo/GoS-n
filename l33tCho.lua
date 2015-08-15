@@ -29,7 +29,8 @@ end
 if CanUseSpell(myHero, _W) == READY and WPred.HitChance == 1 and Config.W then
 CastSkillShot(_W,WPred.PredPos.x,WPred.WredPos.y,WPred.PredPos.z)
 end
-
+end
+end)
 function Killsteal()
  for i,enemy in pairs(GetEnemyHeroes()) do
    local Rdmg = 175*GetCastLevel(myHero,_R)+125+.7*GetBonusAP(myHero)
