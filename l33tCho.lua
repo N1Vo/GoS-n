@@ -6,6 +6,9 @@ KSConfig = scriptConfig("KS", "Killsteal:")
 KSConfig.addParam("KSR", "Killsteal with R", SCRIPT_PARAM_ONOFF, false)
 DrawingsConfig = scriptConfig("Drawings", "Drawings:")
 DrawingsConfig.addParam("DrawQ","Draw Q", SCRIPT_PARAM_ONOFF, true)
+HarassConfig = scriptConfig("Harass", "Harass:")
+HarassConfig.addParam("HarassQ", "Harass Q (C)", SCRIPT_PARAM_ONOFF, true)
+HarassConfig.addParam("HarassW", "Harass W (C)", SCRIPT_PARAM_ONOFF, true)
 
 
 
@@ -21,6 +24,7 @@ OnLoop(function(myHero)
 Killsteal()
 
 Drawings()
+
 
 
 if IWalkConfig.Combo then
@@ -39,6 +43,23 @@ CastSkillShot(_W,WPred.PredPos.x,WPred.PredPos.y,WPred.PredPos.z)
 end
 end
 end
+
+if IWalkConfig.Harass then
+
+          local target = GetTarget(950, DAMAGE_MAGIC)
+  if ValidTarget(target, 950) then
+  
+  local QPred = GetPredictionForPlayer(GetMyHeroPos(),target,GetMoveSpeed(target),math.huge,1200,GetCastRange(myHero,_Q),250,false,true)
+  local WPred = GetPredictionForPlayer(GetMyHeroPos(),target,GetMoveSpeed(target),math.huge,250,GetCastRange(myHero,_W),210,false,true)
+  
+  if CanUseSpell(myHero, _Q) == READY and QPred.HitChance == 1 and Config.HarassQ then
+CastSkillShot(_Q,QPred.PredPos.x,QPred.PredPos.y,QPred.PredPos.z)
+end
+if CanUseSpell(myHero, _W) == READY and WPred.HitChance == 1 and Config.HarassW then
+CastSkillShot(_W,WPred.PredPos.x,WPred.PredPos.y,WPred.PredPos.z)
+end
+end
+end
 end)
 function Killsteal()
  for i,enemy in pairs(GetEnemyHeroes()) do
@@ -53,3 +74,4 @@ function Drawings()
 myHeroPos = GetOrigin(myHero)
 if CanUseSpell(myHero, _Q) == READY and DrawingsConfig.DrawQ then DrawCircle(myHeroPos.x,myHeroPos.y,myHeroPos.z,GetCastRange(myHero,_Q),3,100,0xff00ff00) end
 end
+
