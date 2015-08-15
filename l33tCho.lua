@@ -29,7 +29,7 @@ if IWalkConfig.Combo then
   if ValidTarget(target, 950) then
   
   local QPred = GetPredictionForPlayer(GetMyHeroPos(),target,GetMoveSpeed(target),math.huge,1200,GetCastRange(myHero,_Q),250,false,true)
-   local WPred = GetPredictionForPlayer(GetMyHeroPos(),target,GetMoveSpeed(target),math.huge,250,GetCastRange(myHero,_Q),210,false,true)
+   local WPred = GetPredictionForPlayer(GetMyHeroPos(),target,GetMoveSpeed(target),math.huge,250,GetCastRange(myHero,_W),210,false,true)
    
    if CanUseSpell(myHero, _Q) == READY and QPred.HitChance == 1 and Config.Q then
 CastSkillShot(_Q,QPred.PredPos.x,QPred.PredPos.y,QPred.PredPos.z)
